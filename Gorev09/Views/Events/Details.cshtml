@@ -1,0 +1,15 @@
+﻿@{
+    var eventModel = ViewBag.Event;
+}
+
+<div class="px-4 py-5 my-5 text-center">
+    <img class="d-block mx-auto mb-4" src="~/ET.png" alt="" width="250" height="200">
+    <h1 class="display-5 fw-bold text-body-emphasis">@eventModel.Title</h1>
+    <div class="col-lg-6 mx-auto">
+        <p class="lead mb-4"> @eventModel.Description</p>
+        <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
+            <a href="@Url.Action("Edit", "Events", new {id = eventModel.Id})" class="btn btn-warning px-4">Edit Event</a>
+            <a href="@Url.Action("List", "Events")" class="btn btn-secondary px-4">Return</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CV Hazýrlama Aracý</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <header>
+        <h2>CV Hazýrlama Aracý</h2>
+    </header>
+    <div class="container">
+        <div class="block" id="block1">
+            <h3>Metin Ýçerikleri</h3>
+            <hr />
+            <!-- Kiþisel Bilgiler -->
+            <h4>Ýsim Kutusu</h4>
+            <table>
+                <tr>
+                    <td>Ad Soyad:</td>
+                    <td><input type="text" id="name"></td>
+                </tr>
+                <tr>
+                    <td>Ünvan:</td>
+                    <td><input type="text" id="title"></td>
+                </tr>
+            </table>
+
+            <!-- Ýletiþim -->
+            <h4>Ýletiþim Bilgileri</h4>
+            <table>
+                <tr>
+                    <td>Telefon:</td>
+                    <td><input type="tel" id="phone"></td>
+                </tr>
+                <tr>
+                    <td>Email:</td>
+                    <td><input type="email" id="email"></td>
+                </tr>
+                <tr>
+                    <td>Web:</td>
+                    <td><input type="url" id="web"></td>
+                </tr>
+                <tr>
+                    <td>Adres:</td>
+                    <td><textarea rows="5" id="address"></textarea></td>
+                </tr>
+            </table>
+
+
+            <!-- Eðitim Bilgileri -->
+            <h4>Eðitim Bilgileri</h4>
+            <table>
+                <tr>
+                    <td>Açýklama:</td>
+                    <td><textarea rows="5" id="school-description"></textarea></td>
+                </tr>
+                <tr>
+                    <td><label for="school-count">Okul Sayýsý:</label></td>
+                    <td>
+                        <select id="school-count">
+                            <option value="" disabled selected>Seçiniz</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                    </td>
+                </tr>
+
+            </table>
+            <div id="school-inputs-container"></div>
+
+            <!-- Yetenek Bilgileri -->
+            <h4>Yetenekler</h4>
+            <table>
+                <tr>
+                    <td>Açýklama:</td>
+                    <td><textarea rows="5" id="skills-description"></textarea></td>
+                </tr>
+                <tr>
+                    <td><label for="skills-count">Yetenek Sayýsý:</label></td>
+                    <td>
+                        <select id="skills-count">
+                            <option value="" disabled selected>Seçiniz</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <div id="skills-inputs-container"></div>
+            <!-- Hakkýmda -->
+            <h4>Hakkýmda</h4>
+            <table>
+                <tr>
+                    <td>Açýklama:</td>
+                    <td><textarea rows="5" id="about-me"></textarea></td>
+                </tr>
+            </table>
+            <!-- Ýþ Deneyimi -->
+            <h4>Ýþ Deneyimi</h4>
+            <table>
+                <tr>
+                    <td>Açýklama:</td>
+                    <td><textarea rows="5" id="work-experience"></textarea></td>
+                </tr>
+            </table>
+        </div>
+
+
+
+        <div class="block" id="block2">
+            <h3>Görünüþ</h3>
+            <hr />
+            <h4>Renkler</h4>
+            <table>
+                <tr>
+                    <td><label for="bg-color">Arkaplan Rengi:</label></td>
+                    <td><input type="color" id="bg-color" name="bg-color" value="#C81A2C"><br></td>
+                </tr>
+                <tr>
+                    <td> <label for="left-column-color">Sol Kolon Rengi:</label></td>
+                    <td><input type="color" id="left-column-color" name="left-column-color" value="#9F0C1B"><br></td>
+                </tr>
+                <tr>
+                    <td><label for="name-box-color">Ýsim Kutusu Rengi:</label></td>
+                    <td><input type="color" id="name-box-color" name="name-box-color" value="#383838"><br></td>
+                </tr>
+                <tr>
+                    <td><label for="name-box-text-color">Ýsim Kutusu Yazý Rengi:</label></td>
+                    <td> <input type="color" id="name-box-text-color" name="name-box-text-color" value="#FFFFFF"><br></td>
+                </tr>
+            </table>
+            <h4>Yazý Tipi</h4>
+            <table>
+                <tr>
+                    <td><label for="font-family">Yazý Tipi:</label></td>
+                    <td>
+                        <select id="font-family">
+                            <option value="" disabled selected>Seçiminiz</option>
+                            <option value="Times New Roman">Times New Roman</option>
+                            <option value="Courier New">Courier New</option>
+                            <option value="Lucida Handwriting">Lucida Handwriting</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <h4>Yazý Tipi</h4>
+            <table>
+                <tr>
+                    <td> <label for="frame-style">Fotoðraf Çerçevesi Þekli:</label></td>
+                    <td>
+                        <select id="frame-style">
+                            <option value="" disabled selected>Seçiminiz</option>
+                            <option value="square">Köþeli</option>
+                            <option value="rounded">Oval</option>
+                            <option value="circle">Yuvarlak</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <h4>Baþlýk Altý Çizgileri</h4>
+            <table>
+                <tr>
+                    <td><label for="underline-color">Çizgi Rengi:</label></td>
+                    <td><input type="color" id="underline-color" name="underline-color"></td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="underline-style">Çizgi Þekli:</label>
+                    </td>
+                    <td>
+                        <select id="underline-style">
+                            <option value="" disabled selected>Seçiminiz</option>
+                            <option value="solid">Düz</option>
+                            <option value="dashed">Çizgili</option>
+                            <option value="dotted">Noktalý</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+
+        <div class="block" id="block3">
+            <div id="left-subblock">
+                <div id="photo-area">
+                    <div id="photo-placeholder">FOTOÐRAF</div>
+                </div>
+                <div class="block3-header" id="contact-area">
+                    <h2>ÝLETÝÞÝM</h2>
+                    <ul>
+                        <li>
+                            <span id="phone-holder">{ Telefon }</span>
+                        </li>
+                        <li>
+                            <span id="email-holder"> { Mail } </span>
+                        </li>
+                        <li>
+                            <span id="web-holder"> { Web } </span>
+                        </li>
+                        <li>
+                            <span id="address-holder"> { Adres } </span>
+                        </li>
+                        <div id="address-description-area"></div>
+                    </ul>
+                </div>
+                <div class="block3-header" id="schools-area">
+                    <h2>EÐÝTÝM</h2>
+                    <div id="schools-description-area">{ AÇIKLAMA }</div>
+                    <ul id="schools-list"></ul>
+                </div>
+                <div class="block3-header" id="skills-area">
+                    <h2>YETENEKLER</h2>
+                    <div id="skills-description-area">{ AÇIKLAMA }</div>
+                    <ul id="skills-list">
+                    </ul>
+                </div>
+            </div>
+            <div id="right-subblock">
+                <div id="name-title-area">
+                    <h1><span id="name-holder">{ AD SOYAD }</span></h1>
+                    <hr />
+                    <h2><span id="title-holder">{ UNVAN }</span></h2>
+                </div>
+                <div class="block3-header" id="aboutme-area">
+                    <h2>HAKKIMDA</h2>
+                    <p id="about-me-holder">{ AÇIKLAMA } </p>
+                </div>
+                <div class="block3-header" id="experience-area">
+                    <h2>ÝÞ DENEYÝMÝ</h2>
+                    <p id="experience-holder">{ AÇIKLAMA }</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>

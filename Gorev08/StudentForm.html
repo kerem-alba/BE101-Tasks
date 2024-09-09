@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Student Registration</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row justify-content-around">
+            <div class="col-12 col-md-9 col-lg-6">
+                <h2 class="pb-3">Students List</h2>
+                <table id="studentsTable" class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>GPA</th>
+                            <th>Classroom</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4">
+                <h2 class="pb-3">Register</h2>
+                <!-- novalidate olduğu için html validasyon attribute leri çalışmayacak. -->
+                <form id="registerForm" action="https://localhost:7021/api/Students" method="POST" novalidate>
+                    <div class="mb-3">
+                        <label for="Name" class="form-label">Name</label>
+                        <input type="text" class="form-control col" id="Name" name="Name">
+                        <small id="nameNote" class="form-text text-muted"></small>
+                    </div>
+                    <div class="mb-3">
+                        <label for="GPA" class="form-label">Student GPA</label>
+                        <input type="text" class="form-control col" id="GPA" name="GPA">
+                        <small id="numberNote" class="form-text text-muted"></small>
+                    </div>
+                    <div class="mb-3">
+                        <label for="Classroom" class="form-label">Classroom</label>
+                        <select class="form-control col" id="Classroom" name="Classroom">
+                            <option value="">Select</option>
+                            <option value="FS101">FS101</option>
+                            <option value="FS102">FS102</option>
+                            <option value="FS103">FS103</option>
+                            <option value="G060">G060</option>
+                            <option value="G061">G061</option>
+                            <option value="G062">G062</option>
+                        </select>
+                        <small id="classroomNote" class="form-text text-muted">Please select your classroom</small>
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-3">Submit</button>
+                    <div class="input-group mb-3">
+                        <button class="btn btn-secondary" type="button" id="update">Update</button>
+                        <div class="col-xs-2">
+                            <input type="text" id="updateId" class="form-control" placeholder="Id of student">
+                        </div>
+                        <p>
+                            Hocam submitten sonra redirectionı engelleyemedim ama listeye ekleme yapıyor, sayfayı yenileyince görünüyor.
+                            Update'den de hata alıyorum, çözmeye vaktim yetmedi.
+                        </p>
+
+                    </div>
+
+                </form>
+            </div>
+            
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous">
+
+    </script>
+
+
+    <script>
+
+        // ilk yüklenişte listeyi çek
+        window.onload = function () {
+            fetchStudents();
+        }
+
+        let tempStudentsList = [];
+
+        document.getElementById('registerForm').addEventListener('submit', function (event) {
+            if (!validateForm()) {
+                event.preventDefault();
+            }
+
+        });
+
+
+        const fetchStudents = () => {
+            fetch("https://localhost:7021/api/Students")
+                .then(response => response.json())
+                .then(data => {
+                    tempStudentsList = data;
+                    populateTable(data);
+                    resetForm();
+                });
+        };
+
+
+        const resetForm = () => {
+            document.getElementById('Name').value = '';
+            document.getElementById('GPA').value = '';
+            document.getElementById('Classroom').value = '';
+        };
+
+
+        // client side validasyonları
+        const validateForm = () => {
+            let isValid = true;
+            const Name = document.getElementById('Name').value;
+            const GPA = parseFloat(document.getElementById('GPA').value);
+            const Classroom = document.getElementById('Classroom').value;
+
+            if (!Name) {
+                alert('First name is required');
+                isValid = false;
+            }
+            if (isNaN(GPA) || GPA > 4 || GPA < 0) {
+                alert('GPA must be a decimal between 0.00 and 4.00');
+                isValid = false;
+            }
+            if (Classroom === "") {
+                alert('Please select a classroom');
+                isValid = false;
+            }
+
+            return isValid;
+        };
+
+
+        // tablonun satırlarını oluştur
+        const populateTable = students => {
+            const tableBody = document.querySelector('#studentsTable tbody');
+            tableBody.innerHTML = '';
+            students.forEach(student => {
+                const row = tableBody.insertRow();
+                row.insertCell(0).innerHTML = student.id;
+                row.insertCell(1).innerHTML = student.name;
+                row.insertCell(2).innerHTML = student.gpa;
+                row.insertCell(3).innerHTML = student.classroom;
+                const deleteCell = row.insertCell(4);
+
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Delete';
+                deleteButton.className = 'btn btn-danger';
+                deleteButton.addEventListener('click', function () { deleteStudent(student.id); });
+                deleteCell.appendChild(deleteButton);
+            });
+        };
+        //delete button onclick fonksiyonu
+        const deleteStudent = studentId => {
+            fetch(`https://localhost:7021/api/Students/${studentId}`, {
+                method: 'DELETE'
+            })
+                .then(response => {
+                    fetchStudents();
+                });
+        };
+        document.getElementById('update').addEventListener('click', function () {
+            const studentId = document.getElementById('updateId').value;
+
+            const updatedStudentData = {
+                id: parseInt(studentId),
+                name: document.getElementById('Name').value,
+                gpa: document.getElementById('GPA').value,
+                classroom: document.getElementById('Classroom').value,
+            };
+
+            const student = tempStudentsList.find(s => s.id === updatedStudentData.id);
+
+            if (student) {
+                fetch(`https://localhost:7021/api/Students/${studentId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(updatedStudentData),
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        fetchStudents();
+                    });
+            } else {
+                alert('Student not found');
+            }
+        });
+
+
+    </script>
+</body>
+
+</html>

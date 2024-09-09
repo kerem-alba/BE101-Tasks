@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ACME Corporation - Eðitim</title>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="logo">
+            <img src="acme-corp.png" alt="Acme Corporation Logo">
+            <h2>Hayatý Kolaylaþtýran Çözümler</h2>
+        </div>
+        <div id="menu">
+            <br />
+            <hr />
+            <ul>
+                <li><a href="index.html">Anasayfa</a></li>
+                <li><a href="hakkimizda.html">Hakkýmýzda</a></li>
+                <li><a href="egitim.html">Eðitim</a></li>
+                <li><a href="yetenekler.html">Yetenekler</a></li>
+                <li><a href="projeler.html">Projeler</a></li>
+                <li><a href="iletisim.html">Ýletiþim</a></li>
+            </ul>
+            <br />
+            <hr />
+        </div>
+        <div id="content">
+            <section>
+                <h2>Eðitim Programlarýmýz</h2>
+                <p>ACME Corporation olarak, çalýþanlarýmýzýn sürekli öðrenme ve geliþim içinde olmalarýný teþvik ediyoruz. Bu amaçla, aþaðýda listelenen çeþitli profesyonel geliþim kurslarý sunuyoruz:</p>
+
+                <ul>
+                    <li>Çizgi Film Karakter Tasarýmý</li>
+                    <li>Animasyon ve Hareket Dinamikleri</li>
+                    <li>Acil Durum Yönetimi ve Ürün Güvenliði</li>
+                </ul>
+
+                <img src="acme-universite.png" alt="Acme Üniversitesi" width="400">
+                <br />
+                <hr />
+
+                <h2>Eðitim Takvimi</h2>
+                <table>
+                    <tr>
+                        <th>Kurs Adý</th>
+                        <th>Tarih</th>
+                        <th>Saat</th>
+                    </tr>
+                    <tr>
+                        <td>Çizgi Film Karakter Tasarýmý</td>
+                        <td>10/11/2023</td>
+                        <td>09:00 - 17:00</td>
+                    </tr>
+                    <tr>
+                        <td>Animasyon ve Hareket Dinamikleri</td>
+                        <td>24/11/2023</td>
+                        <td>09:00 - 17:00</td>
+                    </tr>
+                    <tr>
+                        <td>Acil Durum Yönetimi ve Ürün Güvenliði</td>
+                        <td>05/12/2023</td>
+                        <td>09:00 - 17:00</td>
+                    </tr>
+                </table>
+            </section>
+
+            <section>
+                <br />
+                <hr />
+                <h2>Eðitim Kurslarýna Kayýt</h2>
+                <form action="egitim.html" method="get">
+                    <table>
+                        <tr>
+                            <td><label for="name">Adýnýz ve Soyadýnýz:</label></td>
+                            <td><input type="text" id="name" name="name"></td>
+                        </tr>
+                        <tr>
+                            <td><label for="email">E-posta Adresiniz:</label></td>
+                            <td><input type="email" id="email" name="email"></td>
+                        </tr>
+                        <tr>
+                            <td><label for="course">Kurs Seçimi:</label></td>
+                            <td>
+                                <select id="course" name="course">
+                                    <option value="" selected disabled>Seçiniz</option>
+                                    <option value="karakter-tasarimi">Çizgi Film Karakter Tasarýmý</option>
+                                    <option value="animasyon-dinamikleri">Animasyon ve Hareket Dinamikleri</option>
+                                    <option value="acil-durum-yonetimi">Acil Durum Yönetimi ve Ürün Güvenliði</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                    <button type="submit">Katýl</button>
+                </form>
+            </section>
+        </div>
+        <footer id="footer">
+            <br />
+            <hr />
+            <p>Kerem Albayrak &copy; 2023</p>
+        </footer>
+    </div>
+
+</body>
+</html>

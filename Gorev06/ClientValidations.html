@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Student Registration</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row justify-content-around">
+            <div class="col-18 col-md-9 col-lg-6">
+                <table id="studentsTable" class="table">
+                    <h2 class="pb-3">Students List</h2>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Student No</th>
+                            <th>Classroom</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4">
+                <h2 class="pb-3">Register</h2>
+                <!-- novalidate olduğu için html validasyon attribute leri çalışmayacak. -->
+                <form id="registerForm" action="https://localhost:7094/api/Students" method="POST" enctype="multipart/form-data" novalidate>
+                    <div class="mb-3">
+                        <label for="FirstName" class="form-label">First Name</label>
+                        <input type="text" class="form-control col" id="FirstName" name="FirstName" pattern="[A-Za-z]+" required>
+                        <small id="nameNote" class="form-text text-muted">Only English letters allowed.</small>
+                    </div>
+                    <div class="mb-3">
+                        <label for="LastName" class="form-label">Last Name</label>
+                        <input type="text" class="form-control col" id="LastName" name="LastName" pattern="[A-Za-z]+" required>
+                        <small id="nameNote" class="form-text text-muted">Only English letters allowed.</small>
+                    </div>
+                    <div class="mb-3">
+                        <label for="StudentNo" class="form-label">Student No</label>
+                        <input type="text" class="form-control col" id="StudentNo" name="StudentNo" pattern="\d{4}">
+                        <small id="numberNote" class="form-text text-muted">Please enter your 4-digit number.</small>
+                    </div>
+                    <div class="mb-3">
+                        <label for="Classroom" class="form-label">Classroom</label>
+                        <input type="text" class="form-control col" id="Classroom" name="Classroom" pattern="\d-[abcd]">
+                        <small id="classroomNote" class="form-text text-muted">Please enter your classroom in this
+                            format: 1-a / 3-d / 8-B</small>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+
+    <script>
+
+        // ilk yüklenişte listeyi çek
+        window.onload = function () {
+            fetchStudents();
+        }
+
+        let tempStudentsList = [];
+        document.getElementById('registerForm').addEventListener('submit', function (event) {
+            window.history.back()
+            if (!validateForm()) {
+                event.preventDefault(); // Doğrulama başarısızsa, formun gönderilmesini engelle
+                return;
+            }
+            window.history.back()
+            
+        });
+
+        // Json olarak alınan liste JS olarak temp'te tut ve tabloya gönder
+        const fetchStudents = () => {
+            fetch('https://localhost:7094/api/Students/showall')
+                .then(response => response.json())
+                .then(students => {
+                    tempStudentsList = students;
+                    populateTable(tempStudentsList);
+                })
+        }
+
+        // client side validasyonları
+        const validateForm = () => {
+            let isValid = true;
+
+            const firstName = document.getElementById('FirstName').value;
+            const lastName = document.getElementById('LastName').value;
+            const studentNo = document.getElementById('StudentNo').value;
+            const classroom = document.getElementById('Classroom').value;
+
+            if (!firstName) {
+                alert('First name is required');
+                isValid = false;
+            }
+            if (!lastName) {
+                alert('Last name is required');
+                isValid = false;
+            }
+            // Değer girilmişse regexe uyacak
+            
+            if (!/^\d{4}$/.test(studentNo) && studentNo) {
+                alert('Student No must be a 4-digit number');
+                isValid = false;
+            }
+            if (!/^\d-[abcdABCD]$/.test(classroom) && classroom) {
+                alert('Classroom must be in the format "#-a/b/c/d"');
+                isValid = false;
+            }
+            if (studentNo && !isStudentUnique(studentNo)) {
+                alert('Student number is already taken. Please choose another one.');
+                isValid = false;
+            }
+            return isValid;
+        }
+
+        // benzersizlik kontrol boolean fonksiyonu
+        const isStudentUnique = studentNo => {
+            const studentNoStr = studentNo.toString();
+            return !tempStudentsList.some(student => student.studentNo === studentNoStr);
+        };
+
+        
+
+        // tablonun satırlarını oluştur
+        const populateTable = students => {
+            const tableBody = document.querySelector('#studentsTable tbody');
+            tableBody.innerHTML = '';
+            students.forEach(student => {
+                const row = tableBody.insertRow();
+                row.insertCell(0).innerHTML = student.id;
+                row.insertCell(1).innerHTML = student.firstName;
+                row.insertCell(2).innerHTML = student.lastName;
+                row.insertCell(3).innerHTML = student.studentNo;
+                row.insertCell(4).innerHTML = student.classroom;
+                const deleteCell = row.insertCell(5);
+                const updateCell = row.insertCell(6);
+
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Delete';
+                deleteButton.className = 'btn btn-danger';
+                deleteButton.onclick = function () { deleteStudent(student.id); };
+                deleteCell.appendChild(deleteButton);
+
+                const updateButton = document.createElement('button');
+                updateButton.textContent = 'Update';
+                updateButton.className = 'btn btn-warning';
+                updateCell.appendChild(updateButton);
+
+            });
+        }
+        //delete button onclick fonksiyonu
+        const deleteStudent = studentId => {
+            //satırında bulunduğu öğrencinin id'si ile delete requesti gönderir, başarılıysa liste get requesti gönderilir tablo güncellenir
+            fetch(`https://localhost:7094/api/Students/${studentId}`, {
+                method: 'DELETE'
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error occurred while deleting the student');
+                    }
+                    fetchStudents();
+                })
+                .catch(error => alert(error.message));
+        }
+        
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,131 @@
+{
+	"info": {
+		"_postman_id": "e58d7a1b-2350-4984-8dad-0c05d9d5fd85",
+		"name": "WebApi-Blog",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31418966"
+	},
+	"item": [
+		{
+			"name": "get-articles",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7145/api/articles",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7145",
+					"path": [
+						"api",
+						"articles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-article-by-id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7145/api/articles/1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7145",
+					"path": [
+						"api",
+						"articles",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create-article",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"\",\r\n    \"content\": \"Yeni makalenin içeriği.\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7145/api/articles",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7145",
+					"path": [
+						"api",
+						"articles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update-article",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Güncellenmiş Makale Başlığı\",\r\n    \"content\": \"Güncellenmiş makalenin içeriği.\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7145/api/articles/1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7145",
+					"path": [
+						"api",
+						"articles",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete-article",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7145/api/Articles/1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7145",
+					"path": [
+						"api",
+						"Articles",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
